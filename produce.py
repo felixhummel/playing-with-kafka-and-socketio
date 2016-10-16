@@ -13,7 +13,7 @@ import time
 from kafka import KafkaProducer
 
 
-TOPIC = 'mytopic1'
+TOPIC = 'foo'
 producer = KafkaProducer()
 
 
@@ -21,9 +21,9 @@ def send(thing):
     producer.send(TOPIC, bytes(json.dumps(thing), 'utf-8'))
 
 
-def while_true(sleep_s=0.5, actions=None):
+def while_true(sleep_s=1, actions=None):
     if actions is None:
-        actions = ['foo', 'bar', 'baz']
+        actions = ['foo']
     while True:
         for action in actions:
             dt = datetime.datetime.now(pytz.timezone('Europe/Berlin')).isoformat()

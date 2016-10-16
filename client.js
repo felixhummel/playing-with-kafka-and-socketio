@@ -1,23 +1,41 @@
-var socket = require('socket.io-client')('localhost:6927');
+"use strict"
+var socket = require('socket.io-client')('localhost:6927', {'multiplex': false});
 
-// Log errors and responses from socket.io event callbacks.
+// attach to topic
+// ===============
 function ackCallback(err, res) {
     if (err) {
         console.log('Got error: ', err);
     }
     else {
         console.log('ACK from server with', res);
+        // OK, ready to receive
+        socket.emit('start', null);
     }
 }
 
 
-// Subscribe to some topics.
-let topics = [
-     // subscribe to mytopic1 and mytopic2 starting at latest offset in each
-    'mytopic1',
-    'mytopic2'
-]
-socket.emit('subscribe', topics, ackCallback);
+socket.on('err', (e) => {
+    console.log('Got error from Kasocki server', e);
+});
 
-// Consume 3 messages, receiving them via ackCallback.
-console.log("socket.emit('consume', null, ackCallback);");
+socket.on('connect', function() {
+  console.log('on connect');
+  let topics = ['foo']
+  window.topics = topics; // DEBUG
+  debugger; // wait here, then the rest works
+  // TODO find out why and fix it
+  // guessing "subscribe" doest not work yet
+  // but "connect" should be the correct event for this
+  socket.emit('subscribe', topics, ackCallback);
+})
+
+// dump all messages to console
+// ============================
+socket.on('message', function(message){
+  console.log('Received: ', message);
+});
+
+// debug in chrome console
+window.socket = socket;
+window.ackCallback = ackCallback;
