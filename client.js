@@ -24,6 +24,7 @@ socket.on('connect', function() {
   let topics = ['foo']
   window.topics = topics; // DEBUG
   debugger; // wait here, then the rest works
+  // if you don't wait here (comment out "debugger"), then nothing happens :(
   // TODO find out why and fix it
   // guessing "subscribe" doest not work yet
   // but "connect" should be the correct event for this
