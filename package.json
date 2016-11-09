@@ -2,7 +2,10 @@
   "name": "playing-with-kafka-and-socketio",
   "version": "1.0.0",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "elasticsearch": "^12.0.1",
+    "express": "^4.10.2",
+    "multer": "^1.2.0",
     "socket.io": "^1.5.1",
     "socket.io-client": "^1.5.1"
   },

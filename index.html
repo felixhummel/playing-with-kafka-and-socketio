@@ -1,7 +1,17 @@
+<!doctype html>
 <html>
+  <head>
+    <title>Socket Client</title>
+  </head>
   <body>
-    <p>latest ID:</p>
-    <div id="dump">none (not connected / no pushes yet)</div>
-    <script src="bundle.js" type="text/javascript" charset="utf-8"></script>
+    <div id="dump"></div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+      var dump = document.getElementById('dump');
+      socket.on('foochan', function(msg) {
+          dump.innerHTML = msg;
+      });
+    </script>
   </body>
-</html
+</html>
