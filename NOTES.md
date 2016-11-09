@@ -1,6 +1,6 @@
 publish to `foochan`:
 
-    curl -H "Content-Type: application/json" -v -XPOST localhost:3000/pub/foochan -d '{"hello": "world"}
+    curl -H "Content-Type: application/json" -v -XPOST localhost:3000/pub/foochan -d '{"hello": "world"}'
 
 show stuff:
 

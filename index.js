@@ -78,6 +78,11 @@ app.get('/latest/:channel', function(req, res) {
 
 io.on('connection', function(socket) {
   console.log('a user connected');
+  // TODO get chan from client
+  var channel = 'foochan';
+  get_latest(channel).then(function(latest) {
+    socket.emit(channel, JSON.stringify(latest._source.payload));
+  });
   socket.on('disconnect', function() {
     console.log('user disconnected');
   });
