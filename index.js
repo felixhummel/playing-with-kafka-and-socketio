@@ -54,19 +54,23 @@ function get_latest(channel) {
       ],
       "size": 1
     }
+  }).then(function(body) {
+    var hits = body.hits.hits;
+    // TODO handle empty
+    if (hits.length == 1) {
+      var latest = hits[0];
+      return new Promise(function(resolve, reject) {
+        return resolve(latest);
+      });
+    }
   });
 }
 
 // return latest (debug)
 app.get('/latest/:channel', function(req, res) {
   var channel = req.params.channel;
-  get_latest(channel).then(function(body) {
-    var hits = body.hits.hits;
-    // TODO handle empty
-    if (hits.length == 1) {
-      var latest = hits[0];
-      res.send(JSON.stringify(latest._source.payload) + '\n');
-    }
+  get_latest(channel).then(function(latest) {
+    res.send(JSON.stringify(latest._source.payload) + '\n');
   }, function(error) {
     console.trace(error.message);
   });
