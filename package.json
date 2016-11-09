@@ -1,0 +1,22 @@
+{
+  "name": "playing-with-kafka-and-socketio",
+  "version": "1.0.0",
+  "dependencies": {
+    "kasocki": "^0.1.1",
+    "socket.io": "^1.5.1",
+    "socket.io-client": "^1.5.1"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felixhummel/playing-with-kafka-and-socketio.git"
+  },
+  "author": "Felix Hummel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/felixhummel/playing-with-kafka-and-socketio/issues"
+  },
+  "homepage": "https://github.com/felixhummel/playing-with-kafka-and-socketio#readme"
+}
