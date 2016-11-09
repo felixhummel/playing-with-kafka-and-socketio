@@ -29,14 +29,17 @@ socket.on('connect', function() {
   // guessing "subscribe" doest not work yet
   // but "connect" should be the correct event for this
   socket.emit('subscribe', topics, ackCallback);
-})
+});
 
 // dump all messages to console
 // ============================
+var dump = document.getElementById('dump');
 socket.on('message', function(message){
   console.log('Received: ', message);
+  dump.innerHTML = `<p>${message.id}</p>`
 });
 
 // debug in chrome console
 window.socket = socket;
 window.ackCallback = ackCallback;
+window.dump = dump;
