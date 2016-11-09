@@ -2,7 +2,6 @@
   "name": "playing-with-kafka-and-socketio",
   "version": "1.0.0",
   "dependencies": {
-    "kasocki": "^0.1.1",
     "socket.io": "^1.5.1",
     "socket.io-client": "^1.5.1"
   },
