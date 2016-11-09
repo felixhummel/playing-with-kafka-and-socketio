@@ -1,17 +1,24 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Socket Client</title>
-  </head>
-  <body>
-    <div id="dump"></div>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-      var socket = io();
-      var dump = document.getElementById('dump');
-      socket.on('foochan', function(msg) {
-          dump.innerHTML = msg;
-      });
-    </script>
-  </body>
+<head>
+  <title>Socket Client</title>
+</head>
+<body>
+<div id="dump"></div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var channel = 'foochan';
+
+  var socket = io("http://localhost:3000/", {
+    extraHeaders: {
+      'X-Custom-Header-For-My-Project': 'my-secret-access-token',
+      'Cookie': 'user_session=NI2JlCKF90aE0sJZD9ZzujtdsUqNYSBYxzlTsvdSUe35ZzdtVRGqYFr0kdGxbfc5gUOkR9RGp20GVKza; path=/; expires=Tue, 07-Apr-2015 18:18:08 GMT; secure; HttpOnly'
+    }
+  });
+  var dump = document.getElementById('dump');
+  socket.on(channel, function(msg) {
+    dump.innerHTML = msg;
+  });
+</script>
+</body>
 </html>

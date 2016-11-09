@@ -1,4 +1,8 @@
 var app = require('express')();
+// this is to parse cookies manually
+var cookie = require('cookie');
+// this is middleware for .cookie on req and res
+var cookieParser = require('cookie-parser');
 var http = require('http').Server(app);
 var elasticsearch = require('elasticsearch');
 var io = require('socket.io')(http);
@@ -15,8 +19,13 @@ app.use(bodyParser.json()); // for parsing application/json
 // maybe skip parsing the payload altogether by using raw
 // http://stackoverflow.com/a/18710277
 
+app.use(cookieParser());
+
 // serve the client
 app.get('/', function(req, res) {
+  // set channel and auth via cookie
+  // http://stackoverflow.com/questions/16209145/how-to-set-cookie-in-node-js-using-express-framework
+  res.cookie('channel', 'foochan');
   res.sendfile('index.html');
 });
 
@@ -79,7 +88,9 @@ app.get('/latest/:channel', function(req, res) {
 io.on('connection', function(socket) {
   console.log('a user connected');
   // TODO get chan from client
-  var channel = 'foochan';
+  var cookie_string = socket.client.request.headers.cookie;
+  var cookie_data = cookie.parse(cookie_string);
+  var channel = cookie_data['channel'];
   get_latest(channel).then(function(latest) {
     socket.emit(channel, JSON.stringify(latest._source.payload));
   });
