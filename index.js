@@ -45,7 +45,7 @@ app.post('/pub/:channel', function(req, res) {
   });
   console.log("channel:", channel, "json:", payload);
   io.emit(channel, JSON.stringify(payload));
-  res.send('Got a POST request\n');
+  res.send(`sent message to ${channel}\n`);
 });
 
 /**
