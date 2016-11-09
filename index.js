@@ -86,11 +86,10 @@ app.get('/latest/:channel', function(req, res) {
 });
 
 io.on('connection', function(socket) {
-  console.log('a user connected');
-  // TODO get chan from client
   var cookie_string = socket.client.request.headers.cookie;
   var cookie_data = cookie.parse(cookie_string);
   var channel = cookie_data['channel'];
+  console.log('a user connected to channel ' + channel);
   get_latest(channel).then(function(latest) {
     socket.emit(channel, JSON.stringify(latest._source.payload));
   });
